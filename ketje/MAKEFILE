@@ -1,0 +1,14 @@
+CC=gcc
+CFLAGS=-I.
+OBJ = encrypt.o KeccakF-400-reference.o KeccakP-400-reference.o Ket.o Ketje.o displayIntermediateValues.o
+
+dll: $(OBJ)
+	gcc -shared -o ketje.dll -Wl,--out-implib,libfajl.lib $(OBJ)
+
+main: $(OBJ) main.o
+	gcc -o testprog.exe $(OBJ) main.o
+
+.PHONY: clean
+
+clean:
+	-rm -f *.o *.dll *.exe *.lib

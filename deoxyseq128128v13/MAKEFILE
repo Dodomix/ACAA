@@ -1,0 +1,14 @@
+CC=gcc
+CFLAGS=-I.
+OBJ = deoxys.o encrypt.o tweakableBC.o
+
+dll: $(OBJ)
+	gcc -shared -o dexys128.dll -Wl,--out-implib,libdeoxys.lib $(OBJ)
+
+main: $(OBJ) main.o
+	gcc -o testprog.exe $(OBJ) main.o
+
+.PHONY: clean
+
+clean:
+	-rm -f *.o *.dll *.exe *.lib
