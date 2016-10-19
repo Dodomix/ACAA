@@ -1,0 +1,14 @@
+CC = g++
+SRC = ./src
+BIN = ./bin
+DLL = ./dll
+CXXFLAGS = -Wall -fPIC
+INCLUDES = -I$(SRC)
+OBJ = $(SRC)/encrypt.o $(SRC)/Keccak-f.o $(SRC)/Keyakv2.o $(SRC)/Motorist.o $(SRC)/transformations.o
+
+dll: $(OBJ)
+	g++ -shared -o $(DLL)/lake_keyak.dll $(OBJ)
+
+.PHONY: clean
+clean:
+	rm -f $(SRC)/*.o $(BIN)/*.exe $(DLL)/*.dll
