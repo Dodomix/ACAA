@@ -33,6 +33,7 @@
 // OTHER DEALINGS IN THE SOFTWARE.
 //
 // For more information, please refer to <http://unlicense.org/>
+// compileano s: gcc encrypt.c main.c -o test -lcrypto -lssl -I"/usr/include/openssl"
 */
 
 #include <string.h>

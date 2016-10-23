@@ -29,5 +29,5 @@ int crypto_aead_decrypt(
   const unsigned char *npub,
   const unsigned char *k);
 
-#endif);
+#endif
 
