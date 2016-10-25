@@ -6,9 +6,12 @@ CXXFLAGS = -Wall -fPIC
 INCLUDES = -I$(SRC)
 OBJ = $(SRC)/encrypt.o $(SRC)/Keccak-f.o $(SRC)/Keyakv2.o $(SRC)/Motorist.o $(SRC)/transformations.o
 
+main: $(OBJ) $(SRC)/main.o dll
+	g++ -o testprog.exe $(OBJ) $(SRC)/main.o
+
 dll: $(OBJ)
 	g++ -shared -o $(DLL)/lake_keyak.dll $(OBJ)
 
 .PHONY: clean
 clean:
-	rm -f $(SRC)/*.o $(BIN)/*.exe $(DLL)/*.dll
+	rm -f $(SRC)/*.o *.exe $(DLL)/*.dll
