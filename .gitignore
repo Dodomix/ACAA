@@ -16,3 +16,4 @@
 # word
 ~$*.doc*
 *.tmp
+*.class
