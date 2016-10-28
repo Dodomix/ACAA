@@ -28,4 +28,4 @@ $(BUILD)/t-aes_enc_only.o:
 
 .PHONY: clean
 clean:
-	rm -f $(SRC)/*.o $(BIN)/*.exe $(DLL)/*.dll $(BUILD)/*.o
+	rm -f $(SRC)/*.o $(BIN)/*.exe $(DLL)/*.so $(BUILD)/*.o
