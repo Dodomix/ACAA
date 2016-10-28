@@ -12,7 +12,7 @@ main: $(OBJ) dll
 	gcc -o $(BIN)/aesotrsv3_test.exe $(OBJ)
 
 dll: $(BUILD)/OTR.o $(BUILD)/encrypt.o $(BUILD)/t-aes_enc_only.o
-	gcc -shared -o $(DLL)/aesotrsv3_lib.dll $(OBJ_PI)
+	gcc -shared -o $(DLL)/libaesotrs.so $(OBJ_PI)
 
 $(BUILD)/OTR.o: 
 	gcc -fPIC -c -o $(BUILD)/OTR.o $(SRC)/OTR.c

@@ -12,7 +12,7 @@ main: $(OBJ) dll
 	gcc -o $(BIN)/asconv12_test.exe $(OBJ)
 
 dll: $(OBJ_PI)
-	gcc -shared -o $(DLL)/asconv12_lib.dll $(OBJ_PI)
+	gcc -shared -o $(DLL)/libascon.so $(OBJ_PI)
 
 $(BUILD)/ascon.o: 
 	gcc -fPIC -c -o $(BUILD)/ascon.o $(SRC)/ascon.c
