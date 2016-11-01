@@ -1,10 +1,10 @@
 public class JNI {
    static {
       System.loadLibrary("dll_handler"); // Load native library at runtime
-                                   // hello.dll (Windows) or libhello.so (Unixes)
+                                   // dll_handler.dll (Windows) or libdll_handler.so (Unixes)
    }
  
-   // Declare a native method sayHello() that receives nothing and returns void
+   // Native methods for encryption and decryption (called from library)
    private native void dll_encrypt(String path_in, String path_out, byte[] npub, byte[] key, int alg);
    private native void dll_decrypt(String path_in, String path_out, byte[] npub, byte[] key, int alg);
 
@@ -26,6 +26,7 @@ public class JNI {
     * arg0 - file to encrypt
     * arg1 - path to encrypted file storage
     * arg2 - path to decrypted file storage
+    * arg3 - algorithm number to choose (0,1,2 supported for now)
     */
    public static void main(String[] args) {
 
@@ -35,24 +36,35 @@ public class JNI {
       0 - ASCON
       1 - AESOTRS
       2 - AESOTRP
-      3 - ???
+
+      ------ not yet supported ------
+      3 - Acorn
+      4 - Keyak
+      5 - OCB
+      6 - Norx
+      7 - Deoxys
+      8 - Ketje
+      9 - AEZ
+      10 - MORUS
       */
 
-      int alg = 1;
 
       // enter input file path
       String path_in = args[0];
 
-      // enter output file path
+      // enter encrypted output file path
       String path_out = args[1];
 
-      // enter output 2 file path
+      // enter decrypted output file path
       String path_out2 = args[2];
 
-      // enter key
+      // Algorithm number
+      int alg = Integer.parseInt(args[3]);
+
+      // enter key (in this case 16B)
       byte[] key = hexStringToByteArray("00112233445566778899aabbccddeeff");
 
-      // enter nonce
+      // enter nonce (int his case 16B)
       byte[] nonce = hexStringToByteArray("00112233445566778899aabbccddeeff");
 
       // call encryption function which will do the rest and output the file

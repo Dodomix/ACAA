@@ -1,19 +1,30 @@
-Kako compileati i testirati:
 
-1. Compileati .so fileove (tako se .dll zove na linuxu) preko makefilea pozivanjem naredbe "make".
+##### kako compileati #####
 
-2. Compileati JNI.java naredbom: "javac JNI.java"
-
-3. Stvoriti java JNI header file: "javah -jni JNI"
-
-4. Compileati dll_handler.c u .so(.dll): "gcc -I/usr/lib/jvm/java-8-openjdk-amd64/include -I/usr/lib/jvm/java-8-openjdk-amd64/include/linux -o libdll_handler.so dll_handler.c -shared -fpic -ldl"
-
-- mozda se razlikuje na windowsima, recimo ovaj include/linux bi mozda trebao biti izmjenjen
-
-5. Pokrenuti program: "java -Djava.library.path=./knrd_jni_test JNI testfrog.jpg kriptirana_zaba dekriptirana_zaba.jpg"
-
-- kod linuxa je mozda prije ovoga potrebno exportati path do librarija: "export LD_LIBRARY_PATH="./knrd_jni_test""
+- pokrenuti makefile naredbom: "make"
+- output bi trebali biti fileovi: JNI.h, JNI.class i libdll_handler.so
 
 
 
-Java program prima 3 parametra: JNI <datoteka za kriptiranje> <path_za_kriptirani_file> <path_za_dekriptirani_file>
+
+
+##### kako testirati svoj library #####
+
+1. Compileati svoj algoritam u library .so (Linux) ili .dll (Windows)
+	- na Linuxu datoteka mora imati naziv oblika: "lib<ime>.so"
+	- na Windowsima datoteka mora imati naziv oblika: "<ime>.dll"
+	- ovo je zato jer tako radi loadLibrary poziv u JNI.java kodu
+
+2. Library compileanog algoritma staviti u mapu "libs"
+
+3. Unutar dll_handler.c dodati kod za svoj algoritam na ovaj nacin:
+	- dodati path macro: "#define <ime_algoritma>_PATH "./libs/lib<ime>.so""
+	- u funkciji load_algorithm dodati kod za svoj algoritam po uzoru na vec napravljene algoritme, paziti da se algoritam stavi pod vec predodredeni broj. Broj koji je pridjeljen pojedinom algoritmu mozete vidjeti u komentaru iznad funkcije
+
+4. Compileati (pokrenuti makefile naredbom "make")
+
+5. Pokrenuti program:
+	- kod linuxa je mozda prije ovoga potrebno exportati path do dll_handler libraryja naredbom: "export LD_LIBRARY_PATH="./knrd_jni_test""
+	- program se pokrece naredbom: "java -Djava.library.path=. JNI <datoteka_za_kriptiranje> <path_za_kriptiranu_datoteku> <path_za_dekriptiranu_datoteku> <broj_algoritma_od_0_do_10>"
+
+

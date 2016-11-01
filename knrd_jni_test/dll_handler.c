@@ -5,12 +5,120 @@
 #include <jni.h>
 #include <string.h>
 
-#include "crypto_aead.h"
+//#include "crypto_aead.h"
 #include "JNI.h"
 
-#define ASCON_PATH "../Algoritmi/ASCON/dll/libascon.so"
-#define AESOTRP_PATH "../Algoritmi/AES-OTR/AESOTRPV3/dll/libaesotrp.so"
-#define AESOTRS_PATH "../ACAA/Algoritmi/AES-OTR/AESOTRSV3/dll/libaesotrs.so"
+#define ASCON_PATH "./libs/libascon.so"
+#define AESOTRP_PATH "./libs/libaesotrp.so"
+#define AESOTRS_PATH "./libs/libaesotrs.so"
+
+
+/* 
+algorithms to choose:
+
+0 - ASCON
+1 - AESOTRS
+2 - AESOTRP
+
+------ not yet supported ------
+3 - Acorn
+4 - Keyak
+5 - OCB
+6 - Norx
+7 - Deoxys
+8 - Ketje
+9 - AEZ
+10 - MORUS
+*/
+void* load_algorithm(int alg){
+
+    void *encrypt_fn_handle = NULL;
+
+        switch(alg){
+
+            // ASCON
+            case 0:
+                encrypt_fn_handle = dlopen(ASCON_PATH, RTLD_LAZY);
+                if (!encrypt_fn_handle) {
+                    printf("[ERROR] Cannot load Ascon library\n");
+                    return NULL;
+                }  
+                break;
+
+            // AESOTRS
+            case 1:
+                encrypt_fn_handle = dlopen(AESOTRS_PATH, RTLD_LAZY);
+                if (!encrypt_fn_handle) {
+                    printf("[ERROR] Cannot open AES-OTR-s library\n");
+                    return NULL;
+                }  
+                break;
+
+            // AESOTRP
+            case 2:
+                encrypt_fn_handle = dlopen(AESOTRP_PATH, RTLD_LAZY);
+                if (!encrypt_fn_handle) {
+                    printf("[ERROR] Cannot open AES-OTR-p library\n");
+                    return NULL;
+                }  
+                break;
+
+            // Acorn
+            case 3:
+                printf("[ERROR] Acorn not yet supported!\n");
+                exit(1);
+                break;
+
+            // Keyak
+            case 4:
+                printf("[ERROR] Keyak not yet supported!\n");
+                exit(1);
+                break;
+
+            // OCB
+            case 5:
+                printf("[ERROR] OCB not yet supported!\n");
+                exit(1);
+                break;
+
+            // Norx
+            case 6:
+                printf("[ERROR] Norx not yet supported!\n");
+                exit(1);
+                break;
+
+            // Deoxys
+            case 7:
+                printf("[ERROR] Deoxys not yet supported!\n");
+                exit(1);
+                break;
+
+            // Ketje
+            case 8:
+                printf("[ERROR] Ketje not yet supported!\n");
+                exit(1);
+                break;
+
+            // AEZ
+            case 9:
+                printf("[ERROR] AEZ not yet supported!\n");
+                exit(1);
+                break;
+
+            // MORUS
+            case 10:
+                printf("[ERROR] MORUS not yet supported!\n");
+                exit(1);
+                break;
+
+            default:
+                printf("[ERROR] Algorithm not specified!\n");
+                exit(1);
+    }
+
+    return encrypt_fn_handle;
+}
+
 
 
 /* Encryption function
@@ -61,39 +169,8 @@ void encrypt(const unsigned char *filepath, const unsigned char *outpath, const 
 
 
     // Loading algorithm DLL
-    switch(alg){
-
-        // ASCON
-        case 0:
-            encrypt_fn_handle = dlopen(ASCON_PATH, RTLD_LAZY);
-            if (!encrypt_fn_handle) {
-                printf("[ERROR] Cannot open algorithm dll\n");
-                exit(1);
-            }  
-            break;
-
-        // AESOTRS
-        case 1:
-            encrypt_fn_handle = dlopen(AESOTRS_PATH, RTLD_LAZY);
-            if (!encrypt_fn_handle) {
-                printf("[ERROR] Cannot open algorithm dll\n");
-                exit(1);
-            }  
-            break;
-
-        // AESOTRP
-        case 2:
-            encrypt_fn_handle = dlopen(AESOTRP_PATH, RTLD_LAZY);
-            if (!encrypt_fn_handle) {
-                printf("[ERROR] Cannot open algorithm dll\n");
-                exit(1);
-            }  
-            break;
-
-        default:
-            printf("[ERROR] Algorithm not specified!\n");
-            exit(1);
-
+    if( (encrypt_fn_handle = load_algorithm(alg)) == NULL){
+        printf("[ERROR] Loading algorithm library\n");
     }
 
 
@@ -210,40 +287,9 @@ void decrypt(const unsigned char *filepath, const unsigned char *outpath, const 
  //----------------------------------------------------------------------------------
 
 
-    // Loading algorithm DLL
-    switch(alg){
-
-        // ASCON
-        case 0:
-            decrypt_fn_handle = dlopen(ASCON_PATH, RTLD_LAZY);
-            if (!decrypt_fn_handle) {
-                printf("[ERROR] Cannot open algorithm dll\n");
-                exit(1);
-            }  
-            break;
-
-        // AESOTRS
-        case 1:
-            decrypt_fn_handle = dlopen(AESOTRS_PATH, RTLD_LAZY);
-            if (!decrypt_fn_handle) {
-                printf("[ERROR] Cannot open algorithm dll\n");
-                exit(1);
-            }  
-            break;
-
-        // AESOTRP
-        case 2:
-            decrypt_fn_handle = dlopen(AESOTRP_PATH, RTLD_LAZY);
-            if (!decrypt_fn_handle) {
-                printf("[ERROR] Cannot open algorithm dll\n");
-                exit(1);
-            }  
-            break;
-
-        default:
-            printf("[ERROR] Algorithm not specified!\n");
-            exit(1);
-
+   // Loading algorithm DLL
+    if( (decrypt_fn_handle = load_algorithm(alg)) == NULL){
+        printf("[ERROR] Loading algorithm library\n");
     }
 
 
