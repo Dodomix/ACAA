@@ -11,9 +11,10 @@
 #define ASCON_PATH "./libs/libascon.so"
 #define AESOTRP_PATH "./libs/libaesotrp.so"
 #define AESOTRS_PATH "./libs/libaesotrs.so"
+#define KEYAK_PATH "./libs/liblake_keyak.so"
 
 
-/* 
+/*
 algorithms to choose:
 
 0 - ASCON
@@ -42,7 +43,7 @@ void* load_algorithm(int alg){
                 if (!encrypt_fn_handle) {
                     printf("[ERROR] Cannot load Ascon library\n");
                     return NULL;
-                }  
+                }
                 break;
 
             // AESOTRS
@@ -51,7 +52,7 @@ void* load_algorithm(int alg){
                 if (!encrypt_fn_handle) {
                     printf("[ERROR] Cannot open AES-OTR-s library\n");
                     return NULL;
-                }  
+                }
                 break;
 
             // AESOTRP
@@ -60,7 +61,7 @@ void* load_algorithm(int alg){
                 if (!encrypt_fn_handle) {
                     printf("[ERROR] Cannot open AES-OTR-p library\n");
                     return NULL;
-                }  
+                }
                 break;
 
             // Acorn
@@ -71,8 +72,11 @@ void* load_algorithm(int alg){
 
             // Keyak
             case 4:
-                printf("[ERROR] Keyak not yet supported!\n");
-                exit(1);
+                encrypt_fn_handle = dlopen(KEYAK_PATH, RTLD_LAZY);
+                if (!encrypt_fn_handle) {
+                    printf("[ERROR] Cannot open keyak library\n");
+                    return NULL;
+                }
                 break;
 
             // OCB
@@ -171,6 +175,7 @@ void encrypt(const unsigned char *filepath, const unsigned char *outpath, const 
     // Loading algorithm DLL
     if( (encrypt_fn_handle = load_algorithm(alg)) == NULL){
         printf("[ERROR] Loading algorithm library\n");
+        return;
     }
 
 
@@ -179,11 +184,11 @@ void encrypt(const unsigned char *filepath, const unsigned char *outpath, const 
 
 
     // Opening file for reading
-    fp_r = fopen(path_r,"rb");
-    fseek(fp_r, 0, SEEK_END); 
-    file_size = ftell(fp_r);      
+    fp_r = fopen(path_r, "rb");
+    fseek(fp_r, 0, SEEK_END);
+    file_size = ftell(fp_r);
     printf("Size of file: %lu\n", file_size);
-    fseek(fp_r, 0, SEEK_SET); 
+    fseek(fp_r, 0, SEEK_SET);
 
 
     // Allocating memory for file to be read
@@ -290,6 +295,7 @@ void decrypt(const unsigned char *filepath, const unsigned char *outpath, const 
    // Loading algorithm DLL
     if( (decrypt_fn_handle = load_algorithm(alg)) == NULL){
         printf("[ERROR] Loading algorithm library\n");
+        return;
     }
 
 
@@ -300,10 +306,10 @@ void decrypt(const unsigned char *filepath, const unsigned char *outpath, const 
 
     // Opening file for reading
     fp_r = fopen(path_r,"rb");
-    fseek(fp_r, 0, SEEK_END); 
-    file_size = ftell(fp_r);      
+    fseek(fp_r, 0, SEEK_END);
+    file_size = ftell(fp_r);
     printf("Size of file: %lu\n", file_size);
-    fseek(fp_r, 0, SEEK_SET); 
+    fseek(fp_r, 0, SEEK_SET);
 
 
     // Allocating memory for file to be read
@@ -358,7 +364,27 @@ void decrypt(const unsigned char *filepath, const unsigned char *outpath, const 
 
 }
 
+void prepare_algorithm(unsigned char **nonce, unsigned char **key, int algorithm) {
+    if (algorithm == 4) {
+        unsigned char *tmp = *nonce;
+        int nonce_len = (int) strlen(*nonce);
+        if (nonce_len > 150) {
+            nonce_len = 150;
+        }
+        *nonce = (unsigned char*) malloc(150);
+        *nonce = (unsigned char*) memset(*nonce, '\0', 150);
+        *nonce = (unsigned char*) memcpy(*nonce, tmp, nonce_len);
 
+        *tmp = *key;
+        int key_len = (int) strlen(*nonce);
+        if (key_len > 16) {
+            key_len = 16;
+        }
+        *key = (unsigned char*) malloc(150);
+        *key = (unsigned char*) memset(*key, '\0', 16);
+        *key = (unsigned char*) memcpy(*key, tmp, key_len);
+    }
+}
 
 
 /* Java JNI exported function which is a wrapper for the encryption function.
@@ -370,7 +396,7 @@ void decrypt(const unsigned char *filepath, const unsigned char *outpath, const 
  * alg - algorithm to choose (0,1,2 for now)
  */
 JNIEXPORT void JNICALL Java_JNI_dll_1encrypt (JNIEnv * env, jobject obj, jstring path_in, jstring path_out, jbyteArray pub, jbyteArray key, jint alg){
-  
+
     // convert java types to C types
     const unsigned char *filepath = (*env)->GetStringUTFChars( env, path_in, 0 );
     const unsigned char *outpath = (*env)->GetStringUTFChars( env, path_out, 0 );
@@ -378,27 +404,26 @@ JNIEXPORT void JNICALL Java_JNI_dll_1encrypt (JNIEnv * env, jobject obj, jstring
     jboolean isCopy1, isCopy2;
     const unsigned char *nonce = (const unsigned char*)((*env)->GetByteArrayElements(env, pub, &isCopy1));
     const unsigned char *k = (const unsigned char*)((*env)->GetByteArrayElements(env, key, &isCopy2));
-    
-
+    prepare_algorithm(&nonce, &k, (int)alg);
     // Call encryption handler
     encrypt(filepath, outpath, nonce, k, (int)alg);
 
 
     // clean
-    (*env)->ReleaseStringUTFChars( env, path_in, filepath );     
-    (*env)->ReleaseStringUTFChars( env, path_out, outpath );  
+    (*env)->ReleaseStringUTFChars( env, path_in, filepath );
+    (*env)->ReleaseStringUTFChars( env, path_out, outpath );
 
     if(isCopy1){
         (*env)->ReleaseByteArrayElements(env, pub, (jbyte*)nonce, JNI_ABORT);
-    }                          
+    }
 
     if(isCopy2){
         (*env)->ReleaseByteArrayElements(env, key, (jbyte*)k, JNI_ABORT);
-    }                          
+    }
 
     return;
 }
- 
+
 
 
 /* Java JNI exported function which is a wrapper for the decryption function.
@@ -410,7 +435,7 @@ JNIEXPORT void JNICALL Java_JNI_dll_1encrypt (JNIEnv * env, jobject obj, jstring
  * alg - algorithm to choose (0,1,2 for now)
  */
 JNIEXPORT void JNICALL Java_JNI_dll_1decrypt(JNIEnv *env, jobject obj, jstring path_in, jstring path_out, jbyteArray pub, jbyteArray key, jint alg){
-    
+
     // convert java types to C types
     const unsigned char *filepath = (*env)->GetStringUTFChars( env, path_in, 0 );
     const unsigned char *outpath = (*env)->GetStringUTFChars( env, path_out, 0 );
@@ -418,23 +443,24 @@ JNIEXPORT void JNICALL Java_JNI_dll_1decrypt(JNIEnv *env, jobject obj, jstring p
     jboolean isCopy1, isCopy2;
     const unsigned char *nonce = (const unsigned char*)((*env)->GetByteArrayElements(env, pub, &isCopy1));
     const unsigned char *k = (const unsigned char*)((*env)->GetByteArrayElements(env, key, &isCopy2));
-    
+    prepare_algorithm(&nonce, &k, (int)alg);
+
 
     // Call decryption handler
     decrypt(filepath, outpath, nonce, k, (int)alg);
 
 
     // clean
-    (*env)->ReleaseStringUTFChars( env, path_in, filepath );     
-    (*env)->ReleaseStringUTFChars( env, path_out, outpath );  
+    (*env)->ReleaseStringUTFChars( env, path_in, filepath );
+    (*env)->ReleaseStringUTFChars( env, path_out, outpath );
 
     if(isCopy1){
         (*env)->ReleaseByteArrayElements(env, pub, (jbyte*)nonce, JNI_ABORT);
-    }                          
+    }
 
     if(isCopy2){
         (*env)->ReleaseByteArrayElements(env, key, (jbyte*)k, JNI_ABORT);
-    } 
+    }
 
     return;
 }
