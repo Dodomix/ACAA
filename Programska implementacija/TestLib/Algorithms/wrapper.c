@@ -48,7 +48,7 @@ void* load_algorithm(int alg, int decrypt) {
 
 	// Norx
 	case 6:
-		if (decrypt) encrypt_fn_handle = &norx_decrypt;		//TODO
+		if (decrypt) encrypt_fn_handle = &norx_decrypt;
 		else encrypt_fn_handle = &norx_encrypt;
 		break;
 
@@ -189,9 +189,8 @@ __declspec(dllexport) void encrypt(const unsigned char *filepath, const unsigned
 	fclose(fp_r);
 	fclose(fp_w);
 	free(buffer);
-	//free(plaintext);
+	free(plaintext);
 	free(ciphertext);
-	printf("Je li usao?\n");
 
 }
 
