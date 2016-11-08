@@ -7,10 +7,11 @@ typedef unsigned char u8;
 typedef unsigned long long u64;
 typedef long long i64;
 
-#define PRINTSTATE
-#define PRINTWORDS
-#define size 320/8
-#define rate 64/8
+//#define PRINTSTATE
+//#define PRINTWORDS
+#define size (320/8)
+#define rate (64/8)
+
 
 void printstate(char* text, u8* S) {
 #ifdef PRINTSTATE
@@ -108,8 +109,7 @@ int ascon_encrypt(
   u8 S[size];
   //u8 A[s * rate];
   //u8 M[t * rate];
-  
-  u8* A = (u8*)malloc(s * rate);
+  u8 A[rate];
   u8* M = (u8*)malloc(t * rate);
 
   i64 i, j;
@@ -120,6 +120,7 @@ int ascon_encrypt(
   A[adlen] = 0x80;
   for (i = adlen + 1; i < s * rate; ++i)
     A[i] = 0;
+
   // pad plaintext
   for (i = 0; i < mlen; ++i)
     M[i] = m[i];
@@ -182,10 +183,7 @@ int ascon_encrypt(
     c[mlen + i] = S[rate + klen + i];
   *clen = mlen + klen;
 
-  printf("Before free\n");
-
-  //free(A);
-  //free(M);
+  free(M);
 
   return 0;
 }
@@ -218,13 +216,9 @@ int ascon_decrypt(
   u8 S[size];
   //u8 A[s * rate];
   //u8 M[t * rate];
-  
-  printf("Before malloc\n");
-  u8* A = (u8*)malloc(s * rate);
+  u8 A[rate];
   u8* M = (u8*)malloc(t * rate);
-  printf("After malloc\n");
 
-  
   i64 i, j;
 
   // pad associated data
@@ -295,7 +289,7 @@ int ascon_decrypt(
   for (i = 0; i < *mlen; ++i)
     m[i] = M[i];
 
-  //free(A);
-  //free(M);
+  free(M);
+
   return 0;
 }
