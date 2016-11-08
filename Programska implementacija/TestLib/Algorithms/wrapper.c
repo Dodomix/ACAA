@@ -152,7 +152,7 @@ __declspec(dllexport) void encrypt(const unsigned char *filepath, const unsigned
 
 
 	// Allocating memory for (C,T) concatenated pair
-	ciphertext_tag_size = file_size * sizeof(unsigned char) + 2*tag_length;  //inace je buffer premalen za NORX??
+	ciphertext_tag_size = file_size * sizeof(unsigned char) + 2*tag_length + 1000;  //inace je buffer premalen za NORX??
 	printf("Buffer size: %llu\n", ciphertext_tag_size);
 
 	if ((ciphertext = (unsigned char *)malloc(ciphertext_tag_size)) == NULL) {
@@ -189,7 +189,7 @@ __declspec(dllexport) void encrypt(const unsigned char *filepath, const unsigned
 	fclose(fp_r);
 	fclose(fp_w);
 	free(buffer);
-	free(plaintext);
+	//free(plaintext);
 	free(ciphertext);
 
 }
