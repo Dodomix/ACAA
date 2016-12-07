@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.encryptRadio = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.algorithmList = new System.Windows.Forms.ListBox();
             this.label2 = new System.Windows.Forms.Label();
@@ -44,10 +45,25 @@
             this.outputTextBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
             this.label12 = new System.Windows.Forms.Label();
-            this.decryptButton = new System.Windows.Forms.Button();
             this.encryptButton = new System.Windows.Forms.Button();
             this.tagTextBox = new System.Windows.Forms.TextBox();
+            this.decryptRadio = new System.Windows.Forms.RadioButton();
+            this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.groupBox1.SuspendLayout();
             this.SuspendLayout();
+            // 
+            // encryptRadio
+            // 
+            this.encryptRadio.AutoSize = true;
+            this.encryptRadio.Checked = true;
+            this.encryptRadio.Location = new System.Drawing.Point(7, 15);
+            this.encryptRadio.Name = "encryptRadio";
+            this.encryptRadio.Size = new System.Drawing.Size(71, 17);
+            this.encryptRadio.TabIndex = 22;
+            this.encryptRadio.TabStop = true;
+            this.encryptRadio.Text = "Enkripcija";
+            this.encryptRadio.UseVisualStyleBackColor = true;
+            this.encryptRadio.CheckedChanged += new System.EventHandler(this.encryptRadio_CheckedChanged);
             // 
             // label1
             // 
@@ -57,7 +73,6 @@
             this.label1.Size = new System.Drawing.Size(50, 13);
             this.label1.TabIndex = 0;
             this.label1.Text = "Algoritam";
-            this.label1.Click += new System.EventHandler(this.label1_Click);
             // 
             // algorithmList
             // 
@@ -76,7 +91,6 @@
             this.label2.Size = new System.Drawing.Size(70, 13);
             this.label2.TabIndex = 2;
             this.label2.Text = "Algoritam info";
-            this.label2.Click += new System.EventHandler(this.label2_Click);
             // 
             // label3
             // 
@@ -194,24 +208,15 @@
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(660, 280);
+            this.label12.Location = new System.Drawing.Point(412, 325);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(59, 13);
             this.label12.TabIndex = 16;
             this.label12.Text = "Sažetak T:";
             // 
-            // decryptButton
-            // 
-            this.decryptButton.Location = new System.Drawing.Point(580, 323);
-            this.decryptButton.Name = "decryptButton";
-            this.decryptButton.Size = new System.Drawing.Size(75, 23);
-            this.decryptButton.TabIndex = 18;
-            this.decryptButton.Text = "Dekriptiraj";
-            this.decryptButton.UseVisualStyleBackColor = true;
-            // 
             // encryptButton
             // 
-            this.encryptButton.Location = new System.Drawing.Point(499, 322);
+            this.encryptButton.Location = new System.Drawing.Point(580, 320);
             this.encryptButton.Name = "encryptButton";
             this.encryptButton.Size = new System.Drawing.Size(75, 23);
             this.encryptButton.TabIndex = 19;
@@ -221,19 +226,39 @@
             // 
             // tagTextBox
             // 
-            this.tagTextBox.Location = new System.Drawing.Point(663, 296);
+            this.tagTextBox.Location = new System.Drawing.Point(474, 322);
             this.tagTextBox.Name = "tagTextBox";
             this.tagTextBox.Size = new System.Drawing.Size(100, 20);
             this.tagTextBox.TabIndex = 21;
+            // 
+            // decryptRadio
+            // 
+            this.decryptRadio.AutoSize = true;
+            this.decryptRadio.Location = new System.Drawing.Point(6, 38);
+            this.decryptRadio.Name = "decryptRadio";
+            this.decryptRadio.Size = new System.Drawing.Size(72, 17);
+            this.decryptRadio.TabIndex = 23;
+            this.decryptRadio.Text = "Dekripcija";
+            this.decryptRadio.UseVisualStyleBackColor = true;
+            // 
+            // groupBox1
+            // 
+            this.groupBox1.Controls.Add(this.encryptRadio);
+            this.groupBox1.Controls.Add(this.decryptRadio);
+            this.groupBox1.Location = new System.Drawing.Point(15, 178);
+            this.groupBox1.Name = "groupBox1";
+            this.groupBox1.Size = new System.Drawing.Size(120, 62);
+            this.groupBox1.TabIndex = 24;
+            this.groupBox1.TabStop = false;
             // 
             // CryptoAEAD
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(775, 358);
+            this.ClientSize = new System.Drawing.Size(674, 358);
+            this.Controls.Add(this.groupBox1);
             this.Controls.Add(this.tagTextBox);
             this.Controls.Add(this.encryptButton);
-            this.Controls.Add(this.decryptButton);
             this.Controls.Add(this.label12);
             this.Controls.Add(this.outputTextBox);
             this.Controls.Add(this.label10);
@@ -253,6 +278,8 @@
             this.Name = "CryptoAEAD";
             this.Text = "CryptoAEAD";
             this.Load += new System.EventHandler(this.CryptoAEAD_Load);
+            this.groupBox1.ResumeLayout(false);
+            this.groupBox1.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -276,9 +303,11 @@
         private System.Windows.Forms.TextBox outputTextBox;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.Button decryptButton;
         private System.Windows.Forms.Button encryptButton;
         private System.Windows.Forms.TextBox tagTextBox;
+        private System.Windows.Forms.RadioButton decryptRadio;
+        private System.Windows.Forms.RadioButton encryptRadio;
+        private System.Windows.Forms.GroupBox groupBox1;
     }
 }
 
