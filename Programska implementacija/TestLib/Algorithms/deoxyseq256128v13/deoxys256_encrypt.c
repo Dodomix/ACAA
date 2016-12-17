@@ -1,5 +1,5 @@
 /*
- * Deoxys=-128-128 Reference C Implementation
+ * Deoxys=-256-128 Reference C Implementation
  * 
  * Copyright 2014:
  *     Jeremy Jean <JJean@ntu.edu.sg>
@@ -37,7 +37,7 @@
  and public message number npub[0],npub[1],...
  and secret key k[0],k[1],...
  */
-int deoxys_encrypt(unsigned char *c, unsigned long long *clen,
+int deoxys256_encrypt(unsigned char *c, unsigned long long *clen,
                         const unsigned char *m, unsigned long long mlen,
                         const unsigned char *ad, unsigned long long adlen,
                         const unsigned char *nsec,
@@ -62,7 +62,7 @@ int deoxys_encrypt(unsigned char *c, unsigned long long *clen,
  and public message number npub[0],npub[1],...
  and secret key k[0],k[1],...
  */
-int deoxys_decrypt(unsigned char *m, unsigned long long *mlen,
+int deoxys256_decrypt(unsigned char *m, unsigned long long *mlen,
                         unsigned char *nsec,
                         const unsigned char *c, unsigned long long clen,
                         const unsigned char *ad, unsigned long long adlen,

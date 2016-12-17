@@ -174,6 +174,48 @@
     <ClCompile Include="Ascon\ascon_encrypt.c">
       <Filter>Source Files\ASCON</Filter>
     </ClCompile>
+    <ClCompile Include="Deoxys\deoxyseq128128v13\deoxys.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Deoxys\deoxyseq128128v13\deoxys128_encrypt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Deoxys\deoxyseq128128v13\tweakableBC.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Deoxys\deoxyseq256128v13\deoxys.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Deoxys\deoxyseq256128v13\deoxys256_encrypt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Deoxys\deoxyseq256128v13\tweakableBC.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="deoxyseq128128v13\deoxys.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="deoxyseq128128v13\deoxys128_encrypt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="deoxyseq128128v13\tweakableBC.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="deoxyseq256128v13\deoxys.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="deoxyseq256128v13\deoxys256_encrypt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="deoxyseq256128v13\tweakableBC.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="deoxyseq128128v13\encrypt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="deoxyseq256128v13\encrypt.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="crypto_aead.h">
@@ -382,6 +424,54 @@
     </ClInclude>
     <ClInclude Include="Morus\rijndael-alg-fst.h">
       <Filter>Source Files\MORUS</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxyseq128128v13\api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxyseq128128v13\crypto_aead.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxyseq128128v13\deoxys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxyseq128128v13\tweakableBC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxyseq256128v13\api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxyseq256128v13\crypto_aead.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxyseq256128v13\deoxys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxyseq256128v13\tweakableBC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq128128v13\api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq128128v13\crypto_aead.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq128128v13\deoxys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq128128v13\tweakableBC.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq256128v13\api.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq256128v13\crypto_aead.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq256128v13\deoxys.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq256128v13\tweakableBC.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

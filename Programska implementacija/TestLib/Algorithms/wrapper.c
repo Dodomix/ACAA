@@ -52,10 +52,10 @@ void* load_algorithm(int alg, int decrypt) {
 		else encrypt_fn_handle = &norx_encrypt;
 		break;
 
-	// Deoxys
+	// Deoxys128
 	case 7:
-		if (decrypt) encrypt_fn_handle = &deoxys_decrypt;
-		else encrypt_fn_handle = &deoxys_encrypt;
+		if (decrypt) encrypt_fn_handle = &deoxys128_decrypt;
+		else encrypt_fn_handle = &deoxys128_encrypt;
 		break;
 
 	// Ketje
@@ -76,6 +76,12 @@ void* load_algorithm(int alg, int decrypt) {
 		else encrypt_fn_handle = &morus_encrypt;
 		break;
 
+	// Deoxys256
+	case 11:
+		if (decrypt) encrypt_fn_handle = &deoxys256_decrypt;
+		else encrypt_fn_handle = &deoxys256_encrypt;
+		break;
+
 	default:
 		printf("[ERROR] Algorithm not specified!\n");
 		exit(1);
@@ -83,6 +89,8 @@ void* load_algorithm(int alg, int decrypt) {
 
 	return encrypt_fn_handle;
 }
+
+
 
 /* Encryption function
 *
