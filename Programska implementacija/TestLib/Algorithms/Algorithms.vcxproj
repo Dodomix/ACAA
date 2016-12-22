@@ -57,9 +57,8 @@
     <ClCompile Include="Keyak\Keyakv2.c" />
     <ClCompile Include="Keyak\keyak_encrypt.c" />
     <ClCompile Include="Keyak\Motorist.c" />
-    <ClCompile Include="Morus\blake2b.c" />
-    <ClCompile Include="Morus\morus_encrypt.c" />
-    <ClCompile Include="Morus\rijndael-alg-fst.c" />
+    <ClCompile Include="morus1280128v2\morus128_encrypt.c" />
+    <ClCompile Include="morus1280256v2\morus256_encrypt.c" />
     <ClCompile Include="Norx\norx_encrypt.c" />
     <ClCompile Include="Norx\norx.c" />
     <ClCompile Include="OCB\ocb_encrypt.c" />
@@ -128,10 +127,10 @@
     <ClInclude Include="Keyak\Ket.h" />
     <ClInclude Include="Keyak\Keyakv2.h" />
     <ClInclude Include="Keyak\Motorist.h" />
-    <ClInclude Include="Morus\api.h" />
-    <ClInclude Include="Morus\blake2b.h" />
-    <ClInclude Include="Morus\crypto_aead.h" />
-    <ClInclude Include="Morus\rijndael-alg-fst.h" />
+    <ClInclude Include="morus1280128v2\api.h" />
+    <ClInclude Include="morus1280128v2\crypto_aead.h" />
+    <ClInclude Include="morus1280256v2\api.h" />
+    <ClInclude Include="morus1280256v2\crypto_aead.h" />
     <ClInclude Include="Norx\api.h" />
     <ClInclude Include="Norx\crypto_aead.h" />
     <ClInclude Include="Norx\norx.h" />

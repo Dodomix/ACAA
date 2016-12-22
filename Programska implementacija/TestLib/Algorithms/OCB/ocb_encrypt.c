@@ -37,7 +37,9 @@
 */
 
 #include <string.h>
-#include <openssl/aes.h>
+
+//#include <openssl/aes.h>
+#include <C:\Program Files (x86)\GnuWin32\include\openssl\aes.h>
 
 #include "api.h"
 #include "crypto_aead.h"

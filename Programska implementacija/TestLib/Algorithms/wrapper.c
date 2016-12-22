@@ -70,10 +70,10 @@ void* load_algorithm(int alg, int decrypt) {
 		else encrypt_fn_handle = &aez_encrypt;
 		break;
 
-	// MORUS
+	// MORUS128
 	case 10:
-		if (decrypt) encrypt_fn_handle = &morus_decrypt;
-		else encrypt_fn_handle = &morus_encrypt;
+		if (decrypt) encrypt_fn_handle = &morus128_decrypt;
+		else encrypt_fn_handle = &morus128_encrypt;
 		break;
 
 	// Deoxys256
@@ -82,6 +82,11 @@ void* load_algorithm(int alg, int decrypt) {
 		else encrypt_fn_handle = &deoxys256_encrypt;
 		break;
 
+	// MORUS256
+	case 12:
+		if (decrypt) encrypt_fn_handle = &morus256_decrypt;
+		else encrypt_fn_handle = &morus256_encrypt;
+		break;
 	default:
 		printf("[ERROR] Algorithm not specified!\n");
 		exit(1);
