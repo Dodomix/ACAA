@@ -1,0 +1,6 @@
+c:\users\user\documents\visual studio 2015\Projects\TestApplication\TestApplication\bin\Debug\TestApplication.exe.config
+c:\users\user\documents\visual studio 2015\Projects\TestApplication\TestApplication\bin\Debug\TestApplication.exe
+c:\users\user\documents\visual studio 2015\Projects\TestApplication\TestApplication\bin\Debug\TestApplication.pdb
+c:\users\user\documents\visual studio 2015\Projects\TestApplication\TestApplication\obj\Debug\TestApplication.csprojResolveAssemblyReference.cache
+c:\users\user\documents\visual studio 2015\Projects\TestApplication\TestApplication\obj\Debug\TestApplication.exe
+c:\users\user\documents\visual studio 2015\Projects\TestApplication\TestApplication\obj\Debug\TestApplication.pdb

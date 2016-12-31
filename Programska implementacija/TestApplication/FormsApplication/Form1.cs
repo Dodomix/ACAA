@@ -8,7 +8,7 @@ using System.IO;
 namespace FormsApplication
 {
     
-    public partial class CryptoAEAD : Form
+    public partial class Form1 : Form
     {
         [DllImport("Algorithms.dll", EntryPoint = "encrypt")]
         public static extern void encrypt(string filepath, string outpath, string nonce, string k, int alg);
@@ -27,7 +27,7 @@ namespace FormsApplication
         string nonce = "\x6b\x4c\x2d\x0e\xef\xd0\xb1\x92\x72\x53\x34\x15\xf6\xd7\xb8\x99";
         string k = "\x5a\x4b\x3c\x2d\x1e\x0f\x11\xf1\xe2\xd3\xc4\xb5\xa6\x97\x88\x79";
 
-        public CryptoAEAD(Dictionary<String, int> Algorithms)
+        public Form1(Dictionary<String, int> Algorithms)
         {
             this.Algorithms = Algorithms;
             InitializeComponent();
@@ -180,6 +180,11 @@ namespace FormsApplication
             string temp = inputTextBox.Text;
             inputTextBox.Text = outputTextBox.Text;
             outputTextBox.Text = temp;
+        }
+
+        private void algorithmList_SelectedIndexChanged(object sender, EventArgs e)
+        {
+
         }
     }
 }

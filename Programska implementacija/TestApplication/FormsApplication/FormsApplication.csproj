@@ -46,6 +46,18 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="CryptoAEAD.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="CryptoAEAD.Designer.cs">
+      <DependentUpon>CryptoAEAD.cs</DependentUpon>
+    </Compile>
+    <Compile Include="CryptoControl.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="CryptoControl.Designer.cs">
+      <DependentUpon>CryptoControl.cs</DependentUpon>
+    </Compile>
     <Compile Include="Form1.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -54,6 +66,12 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="CryptoAEAD.resx">
+      <DependentUpon>CryptoAEAD.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="CryptoControl.resx">
+      <DependentUpon>CryptoControl.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="Form1.resx">
       <DependentUpon>Form1.cs</DependentUpon>
     </EmbeddedResource>

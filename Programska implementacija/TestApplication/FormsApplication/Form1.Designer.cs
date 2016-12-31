@@ -1,6 +1,6 @@
 ﻿namespace FormsApplication
 {
-    partial class CryptoAEAD
+    partial class Form1
     {
         /// <summary>
         /// Required designer variable.
@@ -82,6 +82,7 @@
             this.algorithmList.Size = new System.Drawing.Size(120, 147);
             this.algorithmList.Sorted = true;
             this.algorithmList.TabIndex = 1;
+            this.algorithmList.SelectedIndexChanged += new System.EventHandler(this.algorithmList_SelectedIndexChanged);
             // 
             // label2
             // 
@@ -251,7 +252,7 @@
             this.groupBox1.TabIndex = 24;
             this.groupBox1.TabStop = false;
             // 
-            // CryptoAEAD
+            // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -275,7 +276,7 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.algorithmList);
             this.Controls.Add(this.label1);
-            this.Name = "CryptoAEAD";
+            this.Name = "Form1";
             this.Text = "CryptoAEAD";
             this.Load += new System.EventHandler(this.CryptoAEAD_Load);
             this.groupBox1.ResumeLayout(false);

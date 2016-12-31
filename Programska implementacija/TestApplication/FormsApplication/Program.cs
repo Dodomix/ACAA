@@ -31,9 +31,19 @@ namespace FormsApplication
                 Algorithms.Add((String)AlgorithmNames[i], i);
             }
 
+            Dictionary<int, List<int>> KeyLengths = new Dictionary<int, List<int>>();
+            foreach(KeyValuePair<String, int> entry in Algorithms)
+            {
+                List<int> keysList = new List<int>();
+                keysList.Add(128);
+                keysList.Add(256);
+                KeyLengths.Add(entry.Value, keysList);
+            }
+
             Application.EnableVisualStyles();
             Application.SetCompatibleTextRenderingDefault(false);
-            Application.Run(new CryptoAEAD(Algorithms));
+            //Application.Run(new Form1(Algorithms));
+            Application.Run(new CryptoAEAD(Algorithms, KeyLengths));
         }
     }
 }

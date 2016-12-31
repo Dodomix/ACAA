@@ -1,9 +1,11 @@
 C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\bin\Debug\FormsApplication.exe.config
 C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\bin\Debug\FormsApplication.exe
 C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\bin\Debug\FormsApplication.pdb
-C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.csprojResolveAssemblyReference.cache
 C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.CryptoAEAD.resources
 C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.Properties.Resources.resources
 C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.csproj.GenerateResource.Cache
 C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.exe
 C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.pdb
+C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.Form1.resources
+C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.CryptoControl.resources
+C:\Users\User\Documents\Visual Studio 2015\Projects\TestApplication\FormsApplication\obj\Debug\FormsApplication.csprojResolveAssemblyReference.cache
