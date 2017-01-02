@@ -38,6 +38,8 @@ namespace FormsApplication
             //algorithmList.DataSource = ((CryptoAEAD)Parent.Parent.Parent).Algorithms.Keys.ToList();
             //this.algorithmList.SelectedIndexChanged += new System.EventHandler(this.algorithmList_SelectedIndexChanged);
             
+            // TODO
+            filePathKey = "./files/kljuc128.txt";
         }
 
         private void selectButton_Click(object sender, EventArgs e)
@@ -57,71 +59,48 @@ namespace FormsApplication
                     {
                         using (StreamReader sr = new StreamReader(fileStream))
                         {
+                            if (Name == "controlDecrypt" && 
+                                !ofd.SafeFileName.EndsWith("_encrypted.txt"))
+                            {
+                                throw new Exception("Incorrect file name format! The files for decryption must end in \"_encrypted.txt\"");
+                            }
+
                             filePathInput = ofd.FileName;
                             labelInputFile.Text = ofd.SafeFileName;
 
+                            filePathOutput = getOutputPath(filePathInput);
+                            labelOutputFile.Text = Path.GetFileName(filePathOutput);
+
+                            string encryptedText = sr.ReadToEnd();
+                            if (Name == "controlDecrypt")
+                            {
+                                string plainText = encryptedText.Substring(0, encryptedText.Length - 16);
+                                string tag = encryptedText.Substring(encryptedText.Length - 16, 16);
+
+                                var textBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+                                var tagBytes = System.Text.Encoding.UTF8.GetBytes(tag);
+
+                                string base64Text = System.Convert.ToBase64String(textBytes);
+                                string base64Tag = System.Convert.ToBase64String(tagBytes);
+
+                                encryptedText = base64Text;
+                                textBoxTag.Text = base64Tag;
+                            }
+                            
                             String ext = Path.GetExtension(ofd.FileName);
                             if (ext.Equals(".txt"))
                             {
-                                String text = sr.ReadToEnd();
-                                if (text.Length > MAXTEXTLEN)
+                                if (encryptedText.Length > MAXTEXTLEN)
                                 {
-                                    text = text.Substring(0, MAXTEXTLEN);
-                                    text += " ...";
+                                    encryptedText = encryptedText.Substring(0, MAXTEXTLEN);
+                                    encryptedText += " ...";
                                 }
-                                textBoxInput.Text = text;
+                                textBoxInput.Text = encryptedText;
 
                             }
                             else
                             {
                                 textBoxInput.Text = ofd.FileName;
-                            }
-                        }
-                    }
-                }
-                catch (Exception ex)
-                {
-                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
-                }
-            }
-        }
-
-        private void buttonSelectKey_Click(object sender, EventArgs e)
-        {
-            OpenFileDialog ofd = new OpenFileDialog();
-            ofd.InitialDirectory = "c:\\";
-            ofd.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
-            ofd.FilterIndex = 2;
-            ofd.RestoreDirectory = true;
-
-            if (ofd.ShowDialog() == DialogResult.OK)
-            {
-                try
-                {
-                    Stream fileStream = ofd.OpenFile();
-                    if (fileStream != null)
-                    {
-                        using (StreamReader sr = new StreamReader(fileStream))
-                        {
-                            filePathKey = ofd.FileName;
-                            labelKeyFile.Text = ofd.SafeFileName;
-
-                            String ext = Path.GetExtension(ofd.FileName);
-                            if (ext.Equals(".txt"))
-                            {
-                                // TODO keylen i bez tockica
-                                String text = sr.ReadToEnd();
-                                if (text.Length > MAXTEXTLEN)
-                                {
-                                    text = text.Substring(0, MAXTEXTLEN);
-                                    text += " ...";
-                                }
-                                textBoxKey.Text = text;
-
-                            }
-                            else
-                            {
-                                // error
                             }
                         }
                     }
@@ -154,7 +133,7 @@ namespace FormsApplication
 
             // dohvati odgovarajuci nonce
             nonce = getNonce(algNum);
-            // TODO azuriraj u alg info
+            labelNoncelen.Text = nonce.Length.ToString() + " B";
         }
 
         private string getNonce(int algNum)
@@ -180,7 +159,23 @@ namespace FormsApplication
 
             if (!keySet)
             {
-                generateKey();
+                int keyLen = (int)comboBoxKeyLen.SelectedItem / 8;
+                filePathKey = Path.Combine(Path.GetDirectoryName(filePathKey),
+                    "kljuc" + keyLen.ToString()) + ".txt";
+                string fileName = Path.GetFileName(filePathKey);
+                labelKeylen.Text = "(" + keyLen.ToString() + " B)";
+
+                try
+                {
+                    loadKey(filePathKey, fileName);
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message
+                        + "The program will generate a new key.");
+                    generateKey();
+                    saveFile();
+                }
                 keySet = true;
             }
             
@@ -188,8 +183,6 @@ namespace FormsApplication
 
         private void generateKey()
         {
-            string k = "\x5a\x4b\x3c\x2d\x1e\x0f\x11\xf1\xe2\xd3\xc4\xb5\xa6\x97\x88\x79";
-            //byte[] buffer = new byte[] { 0x5a, 0x4b, 0x3c, 0x2d, 0x1e, 0x0f, 0x11, 0xf1, 0xe2, 0xd3, 0xc4, 0xb5, 0xa6, 0x97, 0x88, 0x79 };
             int keyLen = (int)comboBoxKeyLen.SelectedItem / 8;
             byte[] buffer = new byte[keyLen];
 
@@ -202,10 +195,104 @@ namespace FormsApplication
             TabControl tabControl = (TabControl)Parent.Parent;
             int otherTabIndex = tabControl.SelectedIndex ^ 1;
             TabPage otherTab = (TabPage)tabControl.TabPages[otherTabIndex];
-            // TODO cryptocontrol na indexu 1???
-            CryptoControl cryptoControl = (CryptoControl)otherTab.Controls[1];
+            string controlName = (otherTabIndex == 1 ? "controlDecrypt" : "controlEncrypt");
+            CryptoControl cryptoControl = (CryptoControl)otherTab.Controls.Find(controlName, false).First();
             cryptoControl.textBoxKey.Text = base64Text;
         }
 
+        private void loadKey(string filePath, string fileName)
+        {
+            filePathKey = filePath;
+            labelKeyFile.Text = fileName;
+
+            byte[] bytes = File.ReadAllBytes(filePath);
+            
+            int keyLen = (int)comboBoxKeyLen.SelectedItem / 8;
+            if (bytes.Length < keyLen)
+            {
+                // paddaj s nulama
+                Array.Resize(ref bytes, keyLen);
+            }
+            else if (bytes.Length > keyLen)
+            {
+                // skrati kljuc
+                byte[] newBytes = new byte[keyLen];
+                Array.Copy(bytes, newBytes, keyLen);
+                bytes = newBytes;
+            }
+            string base64Key = Convert.ToBase64String(bytes);
+
+            textBoxKey.Text = base64Key;
+            // drugi tab
+            TabControl tabControl = (TabControl)Parent.Parent;
+            int otherTabIndex = tabControl.SelectedIndex ^ 1;
+            TabPage otherTab = (TabPage)tabControl.TabPages[otherTabIndex];
+            string controlName = (otherTabIndex == 1 ? "controlDecrypt" : "controlEncrypt");
+            CryptoControl cryptoControl = (CryptoControl)otherTab.Controls.Find(controlName, false).First();
+            cryptoControl.textBoxKey.Text = base64Key;
+            cryptoControl.labelKeyFile.Text = fileName;
+        }
+
+        private void textBoxKey_TextChanged(object sender, EventArgs e)
+        {
+
+        }
+
+        public string getOutputPath(string filePathInput)
+        {
+            string output = "";
+            if (Name == "controlEncrypt")
+            {
+                output = filePathOutput = Path.Combine(
+                    Path.GetDirectoryName(filePathInput),
+                    Path.GetFileNameWithoutExtension(filePathInput)
+                    + "_encrypted.txt");
+            }
+            else if (Name == "controlDecrypt")
+            {
+                int len = Path.GetFileNameWithoutExtension(filePathInput).Length;
+                output = filePathOutput = Path.Combine(
+                    Path.GetDirectoryName(filePathInput),
+                    Path.GetFileNameWithoutExtension(filePathInput).Substring(0, len - 10)
+                    + "_decrypted.txt");
+            }
+            return output;
+        }
+
+        private void buttonSelectKeyFile_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog ofd = new OpenFileDialog();
+            ofd.InitialDirectory = "c:\\";
+            ofd.Filter = "txt files (*.txt)|*.txt";
+            ofd.FilterIndex = 0;
+            ofd.RestoreDirectory = true;
+
+            if (ofd.ShowDialog() == DialogResult.OK)
+            {
+                try
+                {
+                    Stream fileStream = ofd.OpenFile();
+                    if (fileStream != null)
+                    {
+                        loadKey(ofd.FileName, ofd.SafeFileName);
+                    }
+                }
+                catch (Exception ex)
+                {
+                    MessageBox.Show("Error: Could not read file from disk. Original error: " + ex.Message);
+                }
+            }
+        }
+
+        private void buttonSaveKeyFile_Click(object sender, EventArgs e)
+        {
+            saveFile();
+        }
+
+        private void saveFile()
+        {
+            byte[] keyBytes = Convert.FromBase64String(textBoxKey.Text);
+            File.WriteAllBytes(filePathKey, keyBytes);
+        }
     }
 }

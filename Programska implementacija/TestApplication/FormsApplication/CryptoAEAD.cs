@@ -39,8 +39,9 @@ namespace FormsApplication
 
         private void CryptoAEAD_Load(object sender, EventArgs e)
         {
-            string filePathInputEncrypt = "C:/Users/User/Documents/Visual Studio 2015/Projects/TestApplication/FormsApplication/testni_primjer.txt";
-            string filePathInputDecrypt = "C:/Users/User/Documents/Visual Studio 2015/Projects/TestApplication/FormsApplication/encrypted.txt";
+            // TODO
+            string filePathInputEncrypt = "./files/testni_primjer.txt";
+            string filePathInputDecrypt = "./files/testni_primjer_encrypted.txt";
             initialize(controlEncrypt, filePathInputEncrypt);
             initialize(controlDecrypt, filePathInputDecrypt);
             
@@ -53,10 +54,14 @@ namespace FormsApplication
             cryptoControl.comboBoxKeyLen.DataSource = KeyLengths[0];
 
             // otvori testnu datoteku za enkripciju
-            //textBoxOutput.Text = Directory.GetCurrentDirectory();
+            //cryptoControl.textBoxOutput.Text = Directory.GetCurrentDirectory();
+            // TODO trenutno u bin/debug
             cryptoControl.filePathInput = filePathInput;
-            cryptoControl.labelInputFile.Text = "testni_primjer.txt";
+            cryptoControl.labelInputFile.Text = Path.GetFileName(filePathInput);
 
+            cryptoControl.filePathOutput = cryptoControl.getOutputPath(filePathInput);
+            cryptoControl.labelOutputFile.Text = Path.GetFileName(cryptoControl.filePathOutput);
+            
             try
             {
                 Stream fileStream = File.OpenRead(filePathInput);
@@ -65,10 +70,18 @@ namespace FormsApplication
                     string encryptedText = sr.ReadToEnd();
                     if (cryptoControl.Name == "controlDecrypt")
                     {
-                        var textBytes = System.Text.Encoding.UTF8.GetBytes(encryptedText);
-                        encryptedText = System.Convert.ToBase64String(textBytes);
+                        string plainText = encryptedText.Substring(0, encryptedText.Length - 16);
+                        string tag = encryptedText.Substring(encryptedText.Length - 16, 16);
+
+                        var textBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+                        var tagBytes = System.Text.Encoding.UTF8.GetBytes(tag);
+
+                        string base64Text = System.Convert.ToBase64String(textBytes);
+                        string base64Tag = System.Convert.ToBase64String(tagBytes);
+
+                        encryptedText = base64Text;
+                        cryptoControl.textBoxTag.Text = base64Tag;
                     }
-                    
                     cryptoControl.textBoxInput.Text = encryptedText;
                 }
             }
@@ -77,12 +90,7 @@ namespace FormsApplication
                 MessageBox.Show("Error: Could not read test file from disk. Original error: " + ex.Message);
             }
         }
-
-        private void tabPage1_Click(object sender, EventArgs e)
-        {
-
-        }
-
+        
         private void buttonEncrypt_Click(object sender, EventArgs e)
         {
             try
@@ -94,7 +102,7 @@ namespace FormsApplication
                 string filePath = controlEncrypt.filePathInput;
                 if (filePath != null)
                 {
-                    String destPath = "../../encrypted.txt";
+                    String destPath = controlEncrypt.filePathOutput;
 
                     k = getKey(controlEncrypt);
                     nonce = controlEncrypt.nonce;
@@ -106,8 +114,14 @@ namespace FormsApplication
                         using (StreamReader sr = new StreamReader(fileStream))
                         {
                             string encryptedText = sr.ReadToEnd();
-                            var textBytes = System.Text.Encoding.UTF8.GetBytes(encryptedText);
+                            string plainText = encryptedText.Substring(0, encryptedText.Length - 16);
+                            string tag = encryptedText.Substring(encryptedText.Length - 16, 16);
+
+                            var textBytes = System.Text.Encoding.UTF8.GetBytes(plainText);
+                            var tagBytes = System.Text.Encoding.UTF8.GetBytes(tag);
+
                             string base64Text = System.Convert.ToBase64String(textBytes);
+                            string base64Tag = System.Convert.ToBase64String(tagBytes);
 
                             if (base64Text.Length > MAXTEXTLEN)
                             {
@@ -115,6 +129,7 @@ namespace FormsApplication
                                 base64Text += " ...";
                             }
                             controlEncrypt.textBoxOutput.Text = base64Text;
+                            controlEncrypt.textBoxTag.Text = base64Tag;
                         }
                     }
                     catch (Exception ex)
@@ -143,7 +158,7 @@ namespace FormsApplication
                 string filePath = controlDecrypt.filePathInput;
                 if (filePath != null && controlDecrypt.textBoxInput.Text.Length > 0)
                 {
-                    String destPath = "../../decrypted.txt";
+                    String destPath = controlDecrypt.filePathOutput;
                     k = getKey(controlDecrypt);
                     nonce = controlDecrypt.nonce;
                     decrypt(filePath, destPath, nonce, k, algNum);
@@ -171,15 +186,15 @@ namespace FormsApplication
             }
         }
 
-        private string getKey(CryptoControl cryptoControl)
+        public static string getKey(CryptoControl cryptoControl)
         {
-            // TODO uljepsaj
             string key = cryptoControl.textBoxKey.Text;
             int keyLen = (int)cryptoControl.comboBoxKeyLen.SelectedItem / 8;
             byte[] buffer = new byte[keyLen];
             buffer = System.Convert.FromBase64String(key);
-            key = "";
-            for (int i = 0; i < keyLen; ++i) key += buffer[i];
+            key = BitConverter.ToString(buffer);
+            //key = "";
+            //for (int i = 0; i < keyLen; ++i) key += buffer[i];
             return key;
         }
 
@@ -193,5 +208,6 @@ namespace FormsApplication
             }
             return algNum;
         }
+        
     }
 }

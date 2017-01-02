@@ -62,7 +62,6 @@
             this.tabEncrypt.Size = new System.Drawing.Size(700, 380);
             this.tabEncrypt.TabIndex = 0;
             this.tabEncrypt.Text = "Enkripcija";
-            this.tabEncrypt.Click += new System.EventHandler(this.tabPage1_Click);
             // 
             // controlEncrypt
             // 
