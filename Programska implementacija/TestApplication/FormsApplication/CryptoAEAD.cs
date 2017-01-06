@@ -16,9 +16,9 @@ namespace FormsApplication
     {
 
         [DllImport("Algorithms.dll", EntryPoint = "encrypt")]
-        public static extern void encrypt(string filepath, string outpath, string nonce, string k, int alg);
+        public static extern int encrypt(string filepath, string outpath, string nonce, string k, int alg);
         [DllImport("Algorithms.dll", EntryPoint = "decrypt")]
-        public static extern void decrypt(string filepath, string outpath, string nonce, string k, int alg);
+        public static extern int decrypt(string filepath, string outpath, string nonce, string k, int alg);
 
         public Dictionary<String, int> Algorithms;
 
@@ -106,11 +106,12 @@ namespace FormsApplication
 
                     k = getKey(controlEncrypt);
                     nonce = controlEncrypt.nonce;
-                    encrypt(filePath, destPath, nonce, k, algNum);
+                    int status = encrypt(filePath, destPath, nonce, k, algNum);
+                    if (status != 0) throw new Exception();
 
                     try
                     {
-                        Stream fileStream = File.OpenRead(destPath);
+                         Stream fileStream = File.OpenRead(destPath);
                         using (StreamReader sr = new StreamReader(fileStream))
                         {
                             string encryptedText = sr.ReadToEnd();
@@ -161,7 +162,8 @@ namespace FormsApplication
                     String destPath = controlDecrypt.filePathOutput;
                     k = getKey(controlDecrypt);
                     nonce = controlDecrypt.nonce;
-                    decrypt(filePath, destPath, nonce, k, algNum);
+                    int status = decrypt(filePath, destPath, nonce, k, algNum);
+                    if (status != 0) throw new Exception();
 
                     try
                     {

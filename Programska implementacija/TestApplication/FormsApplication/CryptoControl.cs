@@ -157,7 +157,7 @@ namespace FormsApplication
                 lastIndex = comboBoxKeyLen.SelectedIndex;
             }
 
-            if (!keySet)
+            if (!keySet && filePathKey!=null)
             {
                 int keyLen = (int)comboBoxKeyLen.SelectedItem / 8;
                 filePathKey = Path.Combine(Path.GetDirectoryName(filePathKey),

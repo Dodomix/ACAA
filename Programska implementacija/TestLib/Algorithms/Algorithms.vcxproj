@@ -36,6 +36,9 @@
     <ClCompile Include="deoxyseq256128v13\deoxys.c" />
     <ClCompile Include="deoxyseq256128v13\deoxys256_encrypt.c" />
     <ClCompile Include="deoxyseq256128v13\tweakableBC.c" />
+    <ClCompile Include="Deoxys\deoxys.c" />
+    <ClCompile Include="Deoxys\deoxys_encrypt.c" />
+    <ClCompile Include="Deoxys\tweakableBC.c" />
     <ClCompile Include="Ketje\displayIntermediateValues.c" />
     <ClCompile Include="Ketje\ketje_encrypt.c" />
     <ClCompile Include="Ketje\KeccakF-400-reference.c" />
@@ -59,6 +62,9 @@
     <ClCompile Include="Keyak\Motorist.c" />
     <ClCompile Include="morus1280128v2\morus128_encrypt.c" />
     <ClCompile Include="morus1280256v2\morus256_encrypt.c" />
+    <ClCompile Include="Morus\blake2b.c" />
+    <ClCompile Include="Morus\morus_encrypt.c" />
+    <ClCompile Include="Morus\rijndael-alg-fst.c" />
     <ClCompile Include="Norx\norx_encrypt.c" />
     <ClCompile Include="Norx\norx.c" />
     <ClCompile Include="OCB\ocb_encrypt.c" />
@@ -85,13 +91,15 @@
     <ClInclude Include="Ascon\crypto_aead.h" />
     <ClInclude Include="crypto_aead.h" />
     <ClInclude Include="deoxyseq128128v13\api.h" />
-    <ClInclude Include="deoxyseq128128v13\crypto_aead.h" />
     <ClInclude Include="deoxyseq128128v13\deoxys.h" />
     <ClInclude Include="deoxyseq128128v13\tweakableBC.h" />
     <ClInclude Include="deoxyseq256128v13\api.h" />
-    <ClInclude Include="deoxyseq256128v13\crypto_aead.h" />
     <ClInclude Include="deoxyseq256128v13\deoxys.h" />
     <ClInclude Include="deoxyseq256128v13\tweakableBC.h" />
+    <ClInclude Include="Deoxys\api.h" />
+    <ClInclude Include="Deoxys\crypto_aead.h" />
+    <ClInclude Include="Deoxys\deoxys.h" />
+    <ClInclude Include="Deoxys\tweakableBC.h" />
     <ClInclude Include="Ketje\api.h" />
     <ClInclude Include="Ketje\brg_endian.h" />
     <ClInclude Include="Ketje\crypto_aead.h" />
@@ -131,6 +139,10 @@
     <ClInclude Include="morus1280128v2\crypto_aead.h" />
     <ClInclude Include="morus1280256v2\api.h" />
     <ClInclude Include="morus1280256v2\crypto_aead.h" />
+    <ClInclude Include="Morus\api.h" />
+    <ClInclude Include="Morus\blake2b.h" />
+    <ClInclude Include="Morus\crypto_aead.h" />
+    <ClInclude Include="Morus\rijndael-alg-fst.h" />
     <ClInclude Include="Norx\api.h" />
     <ClInclude Include="Norx\crypto_aead.h" />
     <ClInclude Include="Norx\norx.h" />
@@ -222,7 +234,7 @@
     <Link>
       <SubSystem>Windows</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>C:\Program Files (x86)\GnuWin32\lib;%(Additional Library Directories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>C:\OpenSSL-Win64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalDependencies>kernel32.lib;user32.lib;gdi32.lib;winspool.lib;comdlg32.lib;advapi32.lib;shell32.lib;ole32.lib;oleaut32.lib;uuid.lib;odbc32.lib;odbccp32.lib;libeay32.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
   </ItemDefinitionGroup>

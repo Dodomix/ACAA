@@ -37,7 +37,6 @@
 */
 
 #include <string.h>
-
 #include <openssl/aes.h>
 
 #include "api.h"

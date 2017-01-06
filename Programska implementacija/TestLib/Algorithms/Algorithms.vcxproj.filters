@@ -46,6 +46,18 @@
     <Filter Include="Source Files\MORUS">
       <UniqueIdentifier>{4dcf6b3e-dd86-42cd-9bef-1e4709d77021}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Deoxys128">
+      <UniqueIdentifier>{4aba39c9-e3b1-4bcc-af97-40543e86f7f4}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Deoxys256">
+      <UniqueIdentifier>{cf5641cb-29ca-4bbe-beaa-7d7a6cbbafd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MORUS128">
+      <UniqueIdentifier>{69ccf8ba-3207-4c66-a955-d140f5564edc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\MORUS256">
+      <UniqueIdentifier>{3e55e6bb-0ec1-4118-bef3-b26f0a9f0cbf}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="wrapper.c">
@@ -126,6 +138,12 @@
     <ClCompile Include="Norx\norx_encrypt.c">
       <Filter>Source Files\Norx</Filter>
     </ClCompile>
+    <ClCompile Include="Deoxys\deoxys.c">
+      <Filter>Source Files\Deoxys</Filter>
+    </ClCompile>
+    <ClCompile Include="Deoxys\tweakableBC.c">
+      <Filter>Source Files\Deoxys</Filter>
+    </ClCompile>
     <ClCompile Include="Ketje\displayIntermediateValues.c">
       <Filter>Source Files\Ketje</Filter>
     </ClCompile>
@@ -144,6 +162,9 @@
     <ClCompile Include="Ketje\ketje_encrypt.c">
       <Filter>Source Files\Ketje</Filter>
     </ClCompile>
+    <ClCompile Include="Deoxys\deoxys_encrypt.c">
+      <Filter>Source Files\Deoxys</Filter>
+    </ClCompile>
     <ClCompile Include="Aez\aez_encrypt.c">
       <Filter>Source Files\AEZ</Filter>
     </ClCompile>
@@ -153,32 +174,41 @@
     <ClCompile Include="Aez\rijndael-alg-fst.c">
       <Filter>Source Files\AEZ</Filter>
     </ClCompile>
+    <ClCompile Include="Morus\blake2b.c">
+      <Filter>Source Files\MORUS</Filter>
+    </ClCompile>
+    <ClCompile Include="Morus\rijndael-alg-fst.c">
+      <Filter>Source Files\MORUS</Filter>
+    </ClCompile>
+    <ClCompile Include="Morus\morus_encrypt.c">
+      <Filter>Source Files\MORUS</Filter>
+    </ClCompile>
     <ClCompile Include="Ascon\ascon_encrypt.c">
       <Filter>Source Files\ASCON</Filter>
     </ClCompile>
     <ClCompile Include="deoxyseq128128v13\deoxys.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Deoxys128</Filter>
     </ClCompile>
     <ClCompile Include="deoxyseq128128v13\deoxys128_encrypt.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Deoxys128</Filter>
     </ClCompile>
     <ClCompile Include="deoxyseq128128v13\tweakableBC.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Deoxys128</Filter>
     </ClCompile>
     <ClCompile Include="deoxyseq256128v13\deoxys.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Deoxys256</Filter>
     </ClCompile>
     <ClCompile Include="deoxyseq256128v13\deoxys256_encrypt.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Deoxys256</Filter>
     </ClCompile>
     <ClCompile Include="deoxyseq256128v13\tweakableBC.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\Deoxys256</Filter>
     </ClCompile>
     <ClCompile Include="morus1280128v2\morus128_encrypt.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\MORUS128</Filter>
     </ClCompile>
     <ClCompile Include="morus1280256v2\morus256_encrypt.c">
-      <Filter>Source Files</Filter>
+      <Filter>Source Files\MORUS256</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -317,6 +347,18 @@
     <ClInclude Include="Norx\norx_util.h">
       <Filter>Source Files\Norx</Filter>
     </ClInclude>
+    <ClInclude Include="Deoxys\api.h">
+      <Filter>Source Files\Deoxys</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\crypto_aead.h">
+      <Filter>Source Files\Deoxys</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\deoxys.h">
+      <Filter>Source Files\Deoxys</Filter>
+    </ClInclude>
+    <ClInclude Include="Deoxys\tweakableBC.h">
+      <Filter>Source Files\Deoxys</Filter>
+    </ClInclude>
     <ClInclude Include="Ketje\api.h">
       <Filter>Source Files\Ketje</Filter>
     </ClInclude>
@@ -365,41 +407,47 @@
     <ClInclude Include="Aez\rijndael-alg-fst.h">
       <Filter>Source Files\AEZ</Filter>
     </ClInclude>
-    <ClInclude Include="deoxyseq128128v13\api.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Morus\api.h">
+      <Filter>Source Files\MORUS</Filter>
     </ClInclude>
-    <ClInclude Include="deoxyseq128128v13\crypto_aead.h">
-      <Filter>Header Files</Filter>
+    <ClInclude Include="Morus\blake2b.h">
+      <Filter>Source Files\MORUS</Filter>
+    </ClInclude>
+    <ClInclude Include="Morus\crypto_aead.h">
+      <Filter>Source Files\MORUS</Filter>
+    </ClInclude>
+    <ClInclude Include="Morus\rijndael-alg-fst.h">
+      <Filter>Source Files\MORUS</Filter>
+    </ClInclude>
+    <ClInclude Include="deoxyseq128128v13\api.h">
+      <Filter>Source Files\Deoxys128</Filter>
     </ClInclude>
     <ClInclude Include="deoxyseq128128v13\deoxys.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Deoxys128</Filter>
     </ClInclude>
     <ClInclude Include="deoxyseq128128v13\tweakableBC.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Deoxys128</Filter>
     </ClInclude>
     <ClInclude Include="deoxyseq256128v13\api.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="deoxyseq256128v13\crypto_aead.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Deoxys256</Filter>
     </ClInclude>
     <ClInclude Include="deoxyseq256128v13\deoxys.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Deoxys256</Filter>
     </ClInclude>
     <ClInclude Include="deoxyseq256128v13\tweakableBC.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\Deoxys256</Filter>
     </ClInclude>
     <ClInclude Include="morus1280128v2\api.h">
-      <Filter>Header Files</Filter>
-    </ClInclude>
-    <ClInclude Include="morus1280256v2\api.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\MORUS128</Filter>
     </ClInclude>
     <ClInclude Include="morus1280128v2\crypto_aead.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\MORUS128</Filter>
+    </ClInclude>
+    <ClInclude Include="morus1280256v2\api.h">
+      <Filter>Source Files\MORUS256</Filter>
     </ClInclude>
     <ClInclude Include="morus1280256v2\crypto_aead.h">
-      <Filter>Header Files</Filter>
+      <Filter>Source Files\MORUS256</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>

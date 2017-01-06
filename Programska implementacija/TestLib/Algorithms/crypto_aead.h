@@ -246,7 +246,6 @@
 		const unsigned char *k
 	);
 
-
 	int morus256_encrypt(
 		unsigned char *c, unsigned long long *clen,
 		const unsigned char *m, unsigned long long mlen,

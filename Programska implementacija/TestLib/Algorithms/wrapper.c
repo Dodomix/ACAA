@@ -87,6 +87,7 @@ void* load_algorithm(int alg, int decrypt) {
 		if (decrypt) encrypt_fn_handle = &morus256_decrypt;
 		else encrypt_fn_handle = &morus256_encrypt;
 		break;
+
 	default:
 		printf("[ERROR] Algorithm not specified!\n");
 		exit(1);
@@ -105,7 +106,7 @@ void* load_algorithm(int alg, int decrypt) {
 * k - secret key
 * alg - algorithm to choose (0,1,2 for now)
 */
-__declspec(dllexport) void encrypt(const unsigned char *filepath, const unsigned char *outpath, const unsigned char *nonce, const unsigned char *k, int alg) {
+__declspec(dllexport) int encrypt(const unsigned char *filepath, const unsigned char *outpath, const unsigned char *nonce, const unsigned char *k, int alg) {
 
 	//----------VARIABLE DECLARATIONS---------------------------
 	FILE *fp_r, *fp_w; // reading and writing file pointers
@@ -205,6 +206,7 @@ __declspec(dllexport) void encrypt(const unsigned char *filepath, const unsigned
 	//free(plaintext);
 	free(ciphertext);
 
+	return status;
 }
 
 
@@ -218,7 +220,7 @@ __declspec(dllexport) void encrypt(const unsigned char *filepath, const unsigned
 * k - secret key
 * alg - algorithm to choose (0,1,2 for now)
 */
-__declspec(dllexport) void decrypt(const unsigned char *filepath, const unsigned char *outpath, const unsigned char *nonce, const unsigned char *k, int alg) {
+__declspec(dllexport) int decrypt(const unsigned char *filepath, const unsigned char *outpath, const unsigned char *nonce, const unsigned char *k, int alg) {
 
 	//----------VARIABLE DECLARATIONS---------------------------
 	FILE *fp_r, *fp_w; // reading and writing file pointers
@@ -294,7 +296,7 @@ __declspec(dllexport) void decrypt(const unsigned char *filepath, const unsigned
 	// Decryption
 	status = (*crypto_aead_decrypt)(plaintext, &plaintext_size, 0, buffer, file_size, AD, 0, npub, k);
 
-	if (status < 0) {
+	if (status != 0) {
 		printf("[ERROR] Decryption failed!\n");
 	}
 	else {
@@ -313,4 +315,5 @@ __declspec(dllexport) void decrypt(const unsigned char *filepath, const unsigned
 	free(buffer);
 	free(plaintext);
 
+	return status;
 }
