@@ -1,6 +1,8 @@
 html {
 	margin: 0;
 	padding: 0;
+	overflow-x: hidden;
+	overflow-y: hidden;
 }
 body {
 	background: #CDC2B3 url(images/bg.gif);
