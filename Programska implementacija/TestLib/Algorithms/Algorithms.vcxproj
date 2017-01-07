@@ -29,7 +29,8 @@
     <ClCompile Include="Aez\aez_encrypt.c" />
     <ClCompile Include="Aez\blake2b.c" />
     <ClCompile Include="Aez\rijndael-alg-fst.c" />
-    <ClCompile Include="Ascon\ascon_encrypt.c" />
+    <ClCompile Include="Ascon128\ascon128_encrypt.c" />
+    <ClCompile Include="Ascon256\ascon256_encrypt.c" />
     <ClCompile Include="deoxyseq128128v13\deoxys.c" />
     <ClCompile Include="deoxyseq128128v13\deoxys128_encrypt.c" />
     <ClCompile Include="deoxyseq128128v13\tweakableBC.c" />
@@ -87,8 +88,10 @@
     <ClInclude Include="Aez\blake2b.h" />
     <ClInclude Include="Aez\crypto_aead.h" />
     <ClInclude Include="Aez\rijndael-alg-fst.h" />
-    <ClInclude Include="Ascon\api.h" />
-    <ClInclude Include="Ascon\crypto_aead.h" />
+    <ClInclude Include="Ascon128\api.h" />
+    <ClInclude Include="Ascon128\crypto_aead.h" />
+    <ClInclude Include="Ascon256\api.h" />
+    <ClInclude Include="Ascon256\crypto_aead.h" />
     <ClInclude Include="crypto_aead.h" />
     <ClInclude Include="deoxyseq128128v13\api.h" />
     <ClInclude Include="deoxyseq128128v13\deoxys.h" />

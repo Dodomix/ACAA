@@ -19,9 +19,6 @@
     <Filter Include="Source Files\AESOTRS">
       <UniqueIdentifier>{821bafc2-e04a-45a0-8071-f2a58dc5555f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\ASCON">
-      <UniqueIdentifier>{1b787016-379b-4116-b548-b63c98c3c875}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\AESOTRP">
       <UniqueIdentifier>{ab589d41-0ec2-437c-b52f-0b835976d6e8}</UniqueIdentifier>
     </Filter>
@@ -58,11 +55,14 @@
     <Filter Include="Source Files\MORUS256">
       <UniqueIdentifier>{3e55e6bb-0ec1-4118-bef3-b26f0a9f0cbf}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\ASCON128">
+      <UniqueIdentifier>{1b787016-379b-4116-b548-b63c98c3c875}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\ASCON256">
+      <UniqueIdentifier>{009d688a-7b54-4cb1-9d18-c1a6fe43b727}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="wrapper.c">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Aesotrs\OTR.c">
       <Filter>Source Files\AESOTRS</Filter>
     </ClCompile>
@@ -183,9 +183,6 @@
     <ClCompile Include="Morus\morus_encrypt.c">
       <Filter>Source Files\MORUS</Filter>
     </ClCompile>
-    <ClCompile Include="Ascon\ascon_encrypt.c">
-      <Filter>Source Files\ASCON</Filter>
-    </ClCompile>
     <ClCompile Include="deoxyseq128128v13\deoxys.c">
       <Filter>Source Files\Deoxys128</Filter>
     </ClCompile>
@@ -210,17 +207,17 @@
     <ClCompile Include="morus1280256v2\morus256_encrypt.c">
       <Filter>Source Files\MORUS256</Filter>
     </ClCompile>
+    <ClCompile Include="Ascon128\ascon128_encrypt.c">
+      <Filter>Source Files\ASCON128</Filter>
+    </ClCompile>
+    <ClCompile Include="wrapper.c">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Ascon256\ascon256_encrypt.c">
+      <Filter>Source Files\ASCON256</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="crypto_aead.h">
-      <Filter>Source Files</Filter>
-    </ClInclude>
-    <ClInclude Include="Ascon\api.h">
-      <Filter>Source Files\ASCON</Filter>
-    </ClInclude>
-    <ClInclude Include="Ascon\crypto_aead.h">
-      <Filter>Source Files\ASCON</Filter>
-    </ClInclude>
     <ClInclude Include="Aesotrs\api.h">
       <Filter>Source Files\AESOTRS</Filter>
     </ClInclude>
@@ -448,6 +445,21 @@
     </ClInclude>
     <ClInclude Include="morus1280256v2\crypto_aead.h">
       <Filter>Source Files\MORUS256</Filter>
+    </ClInclude>
+    <ClInclude Include="Ascon128\api.h">
+      <Filter>Source Files\ASCON128</Filter>
+    </ClInclude>
+    <ClInclude Include="Ascon128\crypto_aead.h">
+      <Filter>Source Files\ASCON128</Filter>
+    </ClInclude>
+    <ClInclude Include="crypto_aead.h">
+      <Filter>Source Files</Filter>
+    </ClInclude>
+    <ClInclude Include="Ascon256\crypto_aead.h">
+      <Filter>Source Files\ASCON256</Filter>
+    </ClInclude>
+    <ClInclude Include="Ascon256\api.h">
+      <Filter>Source Files\ASCON256</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
