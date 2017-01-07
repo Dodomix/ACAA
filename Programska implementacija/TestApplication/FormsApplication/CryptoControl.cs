@@ -40,6 +40,8 @@ namespace FormsApplication
             
             // TODO
             filePathKey = "./files/kljuc128.txt";
+
+            comboBoxKeyLen.DrawItem += new DrawItemEventHandler(this.comboBoxKeyLen_DrawItem);
         }
 
         private void selectButton_Click(object sender, EventArgs e)
@@ -126,14 +128,16 @@ namespace FormsApplication
             // TODO cryptocontrol na indexu 1???
             CryptoControl cryptoControl = (CryptoControl)otherTab.Controls[1];
             cryptoControl.algorithmList.SelectedIndex = algorithmList.SelectedIndex;
-            
+
             // dohvati odgovarajuce duljine kljuceva
-            int algNum = ((CryptoAEAD)Parent.Parent.Parent).Algorithms[algorithmList.SelectedItem.ToString()];
+            int algNum = this.getAlgorithmNum();
             comboBoxKeyLen.DataSource = ((CryptoAEAD)Parent.Parent.Parent).KeyLengths[algNum];
 
             // dohvati odgovarajuci nonce
             nonce = getNonce(algNum);
             labelNoncelen.Text = nonce.Length.ToString() + " B";
+
+            comboBoxKeyLen.Refresh();
         }
 
         private string getNonce(int algNum)
@@ -151,6 +155,12 @@ namespace FormsApplication
 
         private void comboBoxKeyLen_SelectedIndexChanged(object sender, EventArgs e)
         {
+            if (!this.has256version(this.getAlgorithmNum()) && comboBoxKeyLen.SelectedIndex == 1)
+            {
+                comboBoxKeyLen.SelectedIndex = 0;
+                return;
+            }
+
             if (comboBoxKeyLen.SelectedIndex != lastIndex)
             {
                 keySet = false;
@@ -179,6 +189,21 @@ namespace FormsApplication
                 keySet = true;
             }
             
+        }
+
+        private void comboBoxKeyLen_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            Font myFont = new Font("Aerial", 10, FontStyle.Regular);
+            if (!this.has256version(this.getAlgorithmNum()) && e.Index == 1)
+            {
+                e.Graphics.DrawString(comboBoxKeyLen.Items[e.Index].ToString(), myFont, Brushes.LightGray, e.Bounds);
+            }
+            else
+            {
+                e.DrawBackground();
+                e.Graphics.DrawString(comboBoxKeyLen.Items[e.Index].ToString(), myFont, Brushes.Black, e.Bounds);
+                e.DrawFocusRectangle();
+            }
         }
 
         private void generateKey()
@@ -293,6 +318,16 @@ namespace FormsApplication
         {
             byte[] keyBytes = Convert.FromBase64String(textBoxKey.Text);
             File.WriteAllBytes(filePathKey, keyBytes);
+        }
+
+        private bool has256version(int algorithmNum)
+        {
+            return algorithmNum == 7 || algorithmNum == 10 || algorithmNum == 11 || algorithmNum == 12;
+        }
+
+        private int getAlgorithmNum()
+        {
+            return ((CryptoAEAD)Parent.Parent.Parent).Algorithms[algorithmList.SelectedItem.ToString()];
         }
     }
 }

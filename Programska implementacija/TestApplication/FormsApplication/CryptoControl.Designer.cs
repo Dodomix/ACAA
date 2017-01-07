@@ -162,6 +162,7 @@
             // 
             // comboBoxKeyLen
             // 
+            this.comboBoxKeyLen.DrawMode = System.Windows.Forms.DrawMode.OwnerDrawFixed;
             this.comboBoxKeyLen.DropDownStyle = System.Windows.Forms.ComboBoxStyle.DropDownList;
             this.comboBoxKeyLen.FormattingEnabled = true;
             this.comboBoxKeyLen.Location = new System.Drawing.Point(13, 264);
