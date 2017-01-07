@@ -322,7 +322,7 @@ namespace FormsApplication
 
         private bool has256version(int algorithmNum)
         {
-            return algorithmNum == 7 || algorithmNum == 10 || algorithmNum == 11 || algorithmNum == 12;
+            return algorithmNum == 7 || algorithmNum == 10 || algorithmNum == 11 || algorithmNum == 12 || algorithmNum == 0 || algorithmNum == 13;
         }
 
         private int getAlgorithmNum()

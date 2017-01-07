@@ -207,6 +207,7 @@ namespace FormsApplication
                 // TODO hardkodirano
                 if (algNum == 7) algNum = 11; // Deoxys
                 if (algNum == 10) algNum = 12; // MORUS
+                if (algNum == 0) algNum = 13; // ASCON
             }
             return algNum;
         }
