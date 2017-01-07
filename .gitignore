@@ -3,17 +3,8 @@
 *.lib
 *.o
 
-# eclipse
-.metadata/
-.project/
-.cproject/
-.project/
-.settings/
-
-# intellij
-.idea/
-
 # word
 ~$*.doc*
 *.tmp
 *.class
+[Dd]ebug/

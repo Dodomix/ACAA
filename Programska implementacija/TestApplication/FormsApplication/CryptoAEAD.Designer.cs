@@ -28,13 +28,15 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.tabControl = new System.Windows.Forms.TabControl();
             this.tabEncrypt = new System.Windows.Forms.TabPage();
+            this.buttonEncrypt = new System.Windows.Forms.Button();
             this.controlEncrypt = new FormsApplication.CryptoControl();
             this.tabDecrypt = new System.Windows.Forms.TabPage();
-            this.controlDecrypt = new FormsApplication.CryptoControl();
-            this.buttonEncrypt = new System.Windows.Forms.Button();
             this.buttonDecrypt = new System.Windows.Forms.Button();
+            this.controlDecrypt = new FormsApplication.CryptoControl();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.tabControl.SuspendLayout();
             this.tabEncrypt.SuspendLayout();
             this.tabDecrypt.SuspendLayout();
@@ -63,6 +65,17 @@
             this.tabEncrypt.TabIndex = 0;
             this.tabEncrypt.Text = "Enkripcija";
             // 
+            // buttonEncrypt
+            // 
+            this.buttonEncrypt.Location = new System.Drawing.Point(557, 323);
+            this.buttonEncrypt.Name = "buttonEncrypt";
+            this.buttonEncrypt.Size = new System.Drawing.Size(123, 39);
+            this.buttonEncrypt.TabIndex = 42;
+            this.buttonEncrypt.Text = "Kriptiraj";
+            this.toolTip1.SetToolTip(this.buttonEncrypt, "Pokreće kriptiranje datoteke");
+            this.buttonEncrypt.UseVisualStyleBackColor = true;
+            this.buttonEncrypt.Click += new System.EventHandler(this.buttonEncrypt_Click);
+            // 
             // controlEncrypt
             // 
             this.controlEncrypt.Location = new System.Drawing.Point(0, 0);
@@ -82,23 +95,6 @@
             this.tabDecrypt.TabIndex = 1;
             this.tabDecrypt.Text = "Dekripcija";
             // 
-            // controlDecrypt
-            // 
-            this.controlDecrypt.Location = new System.Drawing.Point(0, 0);
-            this.controlDecrypt.Name = "controlDecrypt";
-            this.controlDecrypt.Size = new System.Drawing.Size(703, 385);
-            this.controlDecrypt.TabIndex = 1;
-            // 
-            // buttonEncrypt
-            // 
-            this.buttonEncrypt.Location = new System.Drawing.Point(557, 323);
-            this.buttonEncrypt.Name = "buttonEncrypt";
-            this.buttonEncrypt.Size = new System.Drawing.Size(123, 39);
-            this.buttonEncrypt.TabIndex = 42;
-            this.buttonEncrypt.Text = "Kriptiraj";
-            this.buttonEncrypt.UseVisualStyleBackColor = true;
-            this.buttonEncrypt.Click += new System.EventHandler(this.buttonEncrypt_Click);
-            // 
             // buttonDecrypt
             // 
             this.buttonDecrypt.Location = new System.Drawing.Point(557, 323);
@@ -106,8 +102,20 @@
             this.buttonDecrypt.Size = new System.Drawing.Size(123, 39);
             this.buttonDecrypt.TabIndex = 42;
             this.buttonDecrypt.Text = "Dekriptiraj";
+            this.toolTip1.SetToolTip(this.buttonDecrypt, "Pokreće dekriptiranje datoteke");
             this.buttonDecrypt.UseVisualStyleBackColor = true;
             this.buttonDecrypt.Click += new System.EventHandler(this.buttonDecrypt_Click);
+            // 
+            // controlDecrypt
+            // 
+            this.controlDecrypt.Location = new System.Drawing.Point(0, 0);
+            this.controlDecrypt.Name = "controlDecrypt";
+            this.controlDecrypt.Size = new System.Drawing.Size(703, 385);
+            this.controlDecrypt.TabIndex = 1;
+            // 
+            // toolTip1
+            // 
+            this.toolTip1.Popup += new System.Windows.Forms.PopupEventHandler(this.toolTip1_Popup);
             // 
             // CryptoAEAD
             // 
@@ -134,5 +142,6 @@
         private CryptoControl controlDecrypt;
         public System.Windows.Forms.Button buttonEncrypt;
         public System.Windows.Forms.Button buttonDecrypt;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

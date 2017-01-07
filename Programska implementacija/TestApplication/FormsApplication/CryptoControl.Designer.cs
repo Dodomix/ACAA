@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.textBoxTag = new System.Windows.Forms.TextBox();
             this.labelTag2 = new System.Windows.Forms.Label();
             this.textBoxOutput = new System.Windows.Forms.TextBox();
@@ -51,6 +52,7 @@
             this.labelKeylen = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.buttonSaveKeyFile = new System.Windows.Forms.Button();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.SuspendLayout();
             // 
             // textBoxTag
@@ -97,6 +99,7 @@
             this.buttonSelectFile.Size = new System.Drawing.Size(120, 23);
             this.buttonSelectFile.TabIndex = 36;
             this.buttonSelectFile.Text = "Odaberi datoteku";
+            this.toolTip1.SetToolTip(this.buttonSelectFile, "Pokreće odabir datoteke za kriptiranje/dekriptiranje");
             this.buttonSelectFile.UseVisualStyleBackColor = true;
             this.buttonSelectFile.Click += new System.EventHandler(this.selectButton_Click);
             // 
@@ -201,6 +204,7 @@
             this.buttonGenerateKey.Size = new System.Drawing.Size(75, 23);
             this.buttonGenerateKey.TabIndex = 49;
             this.buttonGenerateKey.Text = "Generiraj";
+            this.toolTip1.SetToolTip(this.buttonGenerateKey, "Nasumično generira ključ za kriptiranje");
             this.buttonGenerateKey.UseVisualStyleBackColor = true;
             this.buttonGenerateKey.Click += new System.EventHandler(this.buttonGenerateKey_Click);
             // 
@@ -238,6 +242,7 @@
             this.buttonSelectKeyFile.Size = new System.Drawing.Size(58, 23);
             this.buttonSelectKeyFile.TabIndex = 64;
             this.buttonSelectKeyFile.Text = "Učitaj";
+            this.toolTip1.SetToolTip(this.buttonSelectKeyFile, "Omogućava učitavanje ključa iz datoteke na disku");
             this.buttonSelectKeyFile.UseVisualStyleBackColor = true;
             this.buttonSelectKeyFile.Click += new System.EventHandler(this.buttonSelectKeyFile_Click);
             // 
@@ -266,6 +271,7 @@
             this.buttonSaveKeyFile.Size = new System.Drawing.Size(58, 23);
             this.buttonSaveKeyFile.TabIndex = 68;
             this.buttonSaveKeyFile.Text = "Spremi";
+            this.toolTip1.SetToolTip(this.buttonSaveKeyFile, "Sprema trenutno izabrani ključ u datoteku na disku");
             this.buttonSaveKeyFile.UseVisualStyleBackColor = true;
             this.buttonSaveKeyFile.Click += new System.EventHandler(this.buttonSaveKeyFile_Click);
             // 
@@ -328,5 +334,6 @@
         private System.Windows.Forms.Button buttonSaveKeyFile;
         public System.Windows.Forms.Label labelKeyFile;
         private System.Windows.Forms.Label labelNoncelen;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }

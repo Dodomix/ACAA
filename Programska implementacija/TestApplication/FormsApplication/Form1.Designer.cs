@@ -28,6 +28,7 @@
         /// </summary>
         private void InitializeComponent()
         {
+            this.components = new System.ComponentModel.Container();
             this.encryptRadio = new System.Windows.Forms.RadioButton();
             this.label1 = new System.Windows.Forms.Label();
             this.algorithmList = new System.Windows.Forms.ListBox();
@@ -49,6 +50,7 @@
             this.tagTextBox = new System.Windows.Forms.TextBox();
             this.decryptRadio = new System.Windows.Forms.RadioButton();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
+            this.toolTip1 = new System.Windows.Forms.ToolTip(this.components);
             this.groupBox1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -309,6 +311,7 @@
         private System.Windows.Forms.RadioButton decryptRadio;
         private System.Windows.Forms.RadioButton encryptRadio;
         private System.Windows.Forms.GroupBox groupBox1;
+        private System.Windows.Forms.ToolTip toolTip1;
     }
 }
 
