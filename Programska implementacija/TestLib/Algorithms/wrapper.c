@@ -12,8 +12,8 @@ void* load_algorithm(int alg, int decrypt) {
 
 	// ASCON
 	case 0:
-		if (decrypt) encrypt_fn_handle = &ascon_decrypt;
-		else encrypt_fn_handle = &ascon_encrypt;
+		if (decrypt) encrypt_fn_handle = &ascon128_decrypt;
+		else encrypt_fn_handle = &ascon128_encrypt;
 		break;
 
 	// AESOTRS
@@ -86,6 +86,11 @@ void* load_algorithm(int alg, int decrypt) {
 	case 12:
 		if (decrypt) encrypt_fn_handle = &morus256_decrypt;
 		else encrypt_fn_handle = &morus256_encrypt;
+		break;
+
+	case 13:
+		if (decrypt) encrypt_fn_handle = &ascon256_decrypt;
+		else encrypt_fn_handle = &ascon256_encrypt;
 		break;
 
 	default:
